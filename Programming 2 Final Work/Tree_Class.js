@@ -1,4 +1,4 @@
-class Tree{
+class Tree extends LivingCreature{
     constructor(x, y) {
         super(x,y);
         this.grow = 0;

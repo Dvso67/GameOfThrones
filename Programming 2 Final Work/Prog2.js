@@ -58,10 +58,6 @@ function setup() {
             }
         }
     }
-    console.log(grassArr);
-    console.log(eaterArr);
-    console.log(manArr);
-    //console.log(matrix);
 }
 
 
@@ -96,31 +92,20 @@ function draw() {
     }
     for (var i in eaterArr) {
         eaterArr[i].eat();
-        // console.log(eaterArr);
     }
     for (var i in manArr) {
         manArr[i].plant();
-        // console.log(manArr);
     }
     for (var i in swampArr) {
         swampArr[i].mul();
-        //console.log(swampArr);
     }
     for (var i in treeArr) {
         treeArr[i].growing();
-        //console.log(treeArr);
-        //console.log(treeArr[i]);
     }
-
-    console.log(grassArr);
-    console.log(eaterArr);
-    console.log(manArr);
-    //console.log(matrix);
 
     Swamp_gen_value++
     if (Swamp_gen_value == 3) {
         SwampGenerating();
-        console.log(swampArr);
     }
 }
 

@@ -1,8 +1,6 @@
-class Swamp {
+class Swamp extends LivingCreature{
     constructor(x, y, bool) {
-        this.x = x;
-        this.y = y;
-        this.energy = 0;
+        super(x, y);
         this.directions_SW = [
             [this.x, this.y - 1],
             [this.x, this.y + 1],
@@ -44,45 +42,40 @@ class Swamp {
 
     }
 
+    ArraySplicing(NeededArray){
+        for (var i in NeededArray) {
+            if (NeededArray[i].y == this.y && NeededArray[i].x == this.x) {
+                matrix[this.y][this.x] = 0;
+                NeededArray.splice(i, 1);
+                break;
+            }
+        }
+    }
+
     mul() {
         this.energy++;
         var newChar = random(this.chooseCharacter(9, 10, 10, 10, this.directions_SW));
         
-        if (this.energy >= 20){
-            for (var i in swampArr) {
-                if (swampArr[i].y == this.y && swampArr[i].x == this.x) {
-                    matrix[this.y][this.x] = 0;
-                    swampArr.splice(i, 1);
-                    break;
-                }
-            }
+        if (this.energy >= 20)
+        {
+            this.ArraySplicing(swampArr);
         }
+
         else if (this.energy >= 7 && newChar && this.multiplayed == false) {
             this.multiplayed = true;
-            if (matrix[newChar[1]][newChar[0]] == 1) {
-                for (var i in grassArr) {
-                    if (grassArr[i].y == newChar[1] && grassArr[i].x == newChar[0]) {
-                        grassArr.splice(i, 1);
-                        break;
-                    }
-                }
+            if (matrix[newChar[1]][newChar[0]] == 1) 
+            {
+                this.ArraySplicing(grassArr);
             }
-            else if (matrix[newChar[1]][newChar[0]] == 2) {
-                for (var i in eaterArr) {
-                    if (eaterArr[i].y == newChar[1] && eaterArr[i].x == newChar[0]) {
-                        eaterArr.splice(i, 1);
-                        break;
-                    }
-                }
+            else if (matrix[newChar[1]][newChar[0]] == 2) 
+            {
+                this.ArraySplicing(eaterArr);
             }
-            else if (matrix[newChar[1]][newChar[0]] == 3) {
-                for (var i in manArr) {
-                    if (manArr[i].y == newChar[1] && manArr[i].x == newChar[0]) {
-                        manArr.splice(i, 1);
-                        break;
-                    }
-                }
+            else if (matrix[newChar[1]][newChar[0]] == 3) 
+            {
+                this.ArraySplicing(manArr);
             }
+
             const newSwamp = new Swamp(newChar[0], newChar[1], true);
             swampArr.push(newSwamp);
             matrix[newChar[1]][newChar[0]] = 10;
@@ -92,13 +85,9 @@ class Swamp {
             var newChar2 = random(this.chooseCharacter(9, 10, 2, 3, this.directions_ME));
             if (newChar2) {
                 this.EaterPopulated = true;
-                if (matrix[newChar2[1]][newChar2[0]] == 1) {
-                    for (var i in grassArr) {
-                        if (grassArr[i].y == newChar2[1] && grassArr[i].x == newChar2[0]) {
-                            grassArr.splice(i, 1);
-                            break;
-                        }
-                    }
+                if (matrix[newChar2[1]][newChar2[0]] == 1) 
+                {
+                    this.ArraySplicing(grassArr);
                 }
                 const newEater = new Eater(newChar2[0], newChar2[1]);
                 eaterArr.push(newEater);
@@ -110,13 +99,9 @@ class Swamp {
             var newChar3 = random(this.chooseCharacter(9, 10, 2, 3, this.directions_ME));
             if (newChar3) {
                 this.ManPopulated = true;
-                if (matrix[newChar3[1]][newChar3[0]] == 1) {
-                    for (var i in grassArr) {
-                        if (grassArr[i].y == newChar3[1] && grassArr[i].x == newChar3[0]) {
-                            grassArr.splice(i, 1);
-                            break;
-                        }
-                    }
+                if (matrix[newChar3[1]][newChar3[0]] == 1) 
+                {
+                    this.ArraySplicing(grassArr);
                 }
                 const newMan = new Man(newChar3[0], newChar3[1]);
                 manArr.push(newMan);
