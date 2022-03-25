@@ -1,4 +1,6 @@
-class Man {
+let LivingCreature = require('./LivingCreature')
+
+module.exports = class Man {
     constructor(x, y) {
         super(x, y);
         this.energy = 8; 
@@ -11,7 +13,8 @@ class Man {
     }
 
     mul() {
-        var newChar = random(this.chooseCharacter(0));
+        var emptyCells = super.chooseCell(0);
+        var newChar =emptyCells [Math.floor(Math.random() * emptyCells.length)];
         if (newChar) {
             const newMan = new Man(newChar[0], newChar[1]);
             manArr.push(newMan);
@@ -21,7 +24,8 @@ class Man {
     }
 
     plant() {
-        var newChar = random(this.chooseCharacter(10));
+        var emptyCells = super.chooseCell(10);
+        var newChar =emptyCells [Math.floor(Math.random() * emptyCells.length)];
         if (newChar) {
             for (let i = 0; i < swampArr.length; i++) {
                 if (swampArr[i].x == newChar[0] && swampArr[i].y == newChar[1]) {
@@ -38,7 +42,8 @@ class Man {
     }
 
     eat() {
-        var newChar = random(this.chooseCharacter(2));
+        var emptyCells = super.chooseCell(2);
+        var newChar =emptyCells [Math.floor(Math.random() * emptyCells.length)];
         if (newChar) {
             this.energy += 2;
             matrix[this.y][this.x] = 0;
@@ -69,7 +74,8 @@ class Man {
     }
 
     move() {
-        var newChar = random(this.chooseCharacter(0));
+        var emptyCells = super.chooseCell(0);
+        var newChar =emptyCells [Math.floor(Math.random() * emptyCells.length)];
         if (this.energy > 0 && this.energy < 10 && newChar) {
             matrix[this.y][this.x] = 0;
             this.x = newChar[0];

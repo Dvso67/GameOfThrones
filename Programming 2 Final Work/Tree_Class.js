@@ -1,4 +1,6 @@
-class Tree extends LivingCreature{
+let LivingCreature = require('./LivingCreature')
+
+module.exports = class Tree extends LivingCreature{
     constructor(x, y) {
         super(x,y);
         this.grow = 0;
@@ -17,7 +19,8 @@ class Tree extends LivingCreature{
         }
         
         else if (this.grow >= 2 && this.planted == false){
-             var newchar = random(this.chooseCharacter(0));
+            var emptyCells = super.chooseCell(0);
+            var newChar = emptyCells [Math.floor(Math.random() * emptyCells.length)];
              if (newchar){
                 const newGrass = new Grass(newchar[0], newchar[1])
                 grassArr.push(newGrass);

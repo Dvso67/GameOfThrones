@@ -1,4 +1,6 @@
-class Swamp extends LivingCreature{
+let LivingCreature = require('./LivingCreature')
+
+module.exports = class Swamp extends LivingCreature{
     constructor(x, y, bool) {
         super(x, y);
         this.directions_SW = [
@@ -46,7 +48,9 @@ class Swamp extends LivingCreature{
 
     mul() {
         this.energy++;
-        var newChar = random(this.chooseCharacter(9, 10, 10, 10, this.directions_SW));
+
+        var emptyCells = super.chooseCharacter(9, 10, 10, 10, this.directions_SW);
+        var newChar = emptyCells [Math.floor(Math.random() * emptyCells.length)];
         
         if (this.energy >= 20)
         {
@@ -73,8 +77,11 @@ class Swamp extends LivingCreature{
             matrix[newChar[1]][newChar[0]] = 10;
         }
 
-        else if (this.energy >= 12 && this.EaterPopulated == false) {
-            var newChar2 = random(this.chooseCharacter(9, 10, 2, 3, this.directions_ME));
+        else if (this.energy >= 12 && this.EaterPopulated == false) 
+        {
+            var emptyCells = super.chooseCharacter(9, 10, 2, 3, this.directions_ME);
+            var newChar2 = grassCells [Math.floor(Math.random() * grassCells.length)];
+            
             if (newChar2) {
                 this.EaterPopulated = true;
                 if (matrix[newChar2[1]][newChar2[0]] == 1) 
@@ -87,8 +94,12 @@ class Swamp extends LivingCreature{
             }
         }
 
-        else if (this.energy >= 15 && this.ManPopulated == false) {
-            var newChar3 = random(this.chooseCharacter(9, 10, 2, 3, this.directions_ME));
+        else if (this.energy >= 15 && this.ManPopulated == false) 
+        {
+
+            var emptyCells = super.chooseCharacter(9, 10, 2, 3, this.directions_ME)
+            var newChar3 = grassCells [Math.floor(Math.random() * grassCells.length)];
+
             if (newChar3) {
                 this.ManPopulated = true;
                 if (matrix[newChar3[1]][newChar3[0]] == 1) 

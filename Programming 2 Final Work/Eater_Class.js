@@ -1,4 +1,6 @@
-class Eater extends LivingCreature {
+let LivingCreature = require('./LivingCreature')
+
+module.exports = class Eater extends LivingCreature {
 
     constructor(x, y) {
         super(x, y);
@@ -7,7 +9,9 @@ class Eater extends LivingCreature {
     }
     
     mul(){
-        var newChar = random(this.chooseCell(0));
+
+        var emptyCells = super.chooseCell(0);
+        var newChar =emptyCells [Math.floor(Math.random() * emptyCells.length)];
         if (newChar) {
             const newEater = new Eater(newChar[0], newChar[1]);
             eaterArr.push(newEater);
@@ -18,7 +22,9 @@ class Eater extends LivingCreature {
     
     eat(){
         this.GetNewCoordinates();
-        var newChar = random(this.chooseCell(1));
+        var grassCells = super.chooseCell(0);
+        var newChar = grassCells [Math.floor(Math.random() * grassCells.length)];
+
         if (newChar){
             this.energy+=2;
             matrix[this.y][this.x] = 0;
@@ -43,7 +49,9 @@ class Eater extends LivingCreature {
     }
     
     move(){
-        var newChar = random(this.chooseCell(0));
+
+        var emptyCells = super.chooseCell(0);
+        var newChar = emptyCells [Math.floor(Math.random() * emptyCells.length)];
         this.energy -=2;
         if (this.energy > 0 && newChar){
             matrix[this.y][this.x] = 0;
