@@ -60,7 +60,8 @@ module.exports = class Eater extends LivingCreature {
             matrix[y][x] = 2;
             this.x = x;
             this.y = y;
-            var newChar2 = random(this.chooseCell(1));
+            var emptyCells = super.chooseCell(1);
+            var newChar2 = emptyCells [Math.floor(Math.random() * emptyCells.length)];
             if (newChar2){
                 this.energy ++;
             }
@@ -69,7 +70,8 @@ module.exports = class Eater extends LivingCreature {
             this.die();
         }
         else{
-            var newChar3 = random(this.chooseCell(1));
+            var emptyCells = super.chooseCell(1);
+            var newChar3 = emptyCells [Math.floor(Math.random() * emptyCells.length)];
             if (newChar3){
                 this.energy ++;
             }

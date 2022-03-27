@@ -49,7 +49,7 @@ module.exports = class Swamp extends LivingCreature{
     mul() {
         this.energy++;
 
-        var emptyCells = super.chooseCharacter(9, 10, 10, 10, this.directions_SW);
+        var emptyCells = this.chooseCharacter(9, 10, 10, 10, this.directions_SW);
         var newChar = emptyCells [Math.floor(Math.random() * emptyCells.length)];
         
         if (this.energy >= 20)
@@ -79,8 +79,8 @@ module.exports = class Swamp extends LivingCreature{
 
         else if (this.energy >= 12 && this.EaterPopulated == false) 
         {
-            var emptyCells = super.chooseCharacter(9, 10, 2, 3, this.directions_ME);
-            var newChar2 = grassCells [Math.floor(Math.random() * grassCells.length)];
+            var emptyCells = this.chooseCharacter(9, 10, 2, 3, this.directions_ME);
+            var newChar2 = emptyCells [Math.floor(Math.random() * emptyCells.length)];
             
             if (newChar2) {
                 this.EaterPopulated = true;
@@ -97,8 +97,8 @@ module.exports = class Swamp extends LivingCreature{
         else if (this.energy >= 15 && this.ManPopulated == false) 
         {
 
-            var emptyCells = super.chooseCharacter(9, 10, 2, 3, this.directions_ME)
-            var newChar3 = grassCells [Math.floor(Math.random() * grassCells.length)];
+            var emptyCells = this.chooseCharacter(9, 10, 2, 3, this.directions_ME)
+            var newChar3 = emptyCells [Math.floor(Math.random() * emptyCells.length)];
 
             if (newChar3) {
                 this.ManPopulated = true;

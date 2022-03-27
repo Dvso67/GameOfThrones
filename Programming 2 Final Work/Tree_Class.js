@@ -21,10 +21,10 @@ module.exports = class Tree extends LivingCreature{
         else if (this.grow >= 2 && this.planted == false){
             var emptyCells = super.chooseCell(0);
             var newChar = emptyCells [Math.floor(Math.random() * emptyCells.length)];
-             if (newchar){
-                const newGrass = new Grass(newchar[0], newchar[1])
+             if (newChar){
+                const newGrass = new Grass(newChar[0], newChar[1])
                 grassArr.push(newGrass);
-                matrix[newchar[1]] [newchar[0]] = 1;
+                matrix[newChar[1]] [newChar[0]] = 1;
                 this.planted = true;
              }
 
