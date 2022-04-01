@@ -29,7 +29,7 @@ matrix = [
 function generator() {
   for (var y = 0; y < matrix.length; y++) {
     for (var x = 0; x < 30; x++) {
-      matrix[y].push(Math.round(Math.random() * 1));
+      matrix[y].push(Math.round(Math.random() * 8));
     }
   }
 }
@@ -72,7 +72,8 @@ function CreateObjects() {
   io.sockets.emit("send matrix", matrix);
 }
 
-function Game() {
+function game() {
+
   for (var i in grassArr) {
     grassArr[i].mul();
   }
@@ -93,12 +94,12 @@ function Game() {
   if (Swamp_gen_value == 3) {
     SwampGenerating();
   }
-
   io.sockets.emit("send matrix", matrix);
 }
 
-setInterval(Game, 1000);
-//setInterval(CreateObjects, 1000)
+
+setInterval(game, console.log("Game"), 100);
+//setInterval(CreateObjects(), 100)
 
 function ArraySplicing(NeededArray) {
   for (var i in NeededArray) {
@@ -136,4 +137,5 @@ function SwampGenerating() {
 io.on("connection", function (socket) {
   generator();
   CreateObjects();
+
 });
