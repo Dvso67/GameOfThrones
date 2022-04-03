@@ -3,14 +3,14 @@ var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 var fs = require("fs");
-const { setInterval } = require("timers/promises");
+// const { setInterval } = require("timers/promises");
 
 app.use(express.static("."));
 
 app.get("/", function (req, res) {
   res.redirect("indexp2.html");
 });
-server.listen(3001);
+server.listen(3008);
 
 matrix = [
   [],[],[],[],[],
@@ -33,8 +33,10 @@ function generator() {
     }
   }
 }
-
+generator();
 io.sockets.emit("send matrix", matrix);
+
+
 
 grassArr = [];
 eaterArr = [];
@@ -44,7 +46,7 @@ treeArr = [];
 
 var Swamp_gen_value = 0;
 
-io.sockets.emit("Setuping", matrix);
+io.sockets.emit("send matrix", matrix);
 
 Grass = require("./Grass_Class");
 Eater = require("./Eater_Class");
@@ -97,9 +99,62 @@ function game() {
   io.sockets.emit("send matrix", matrix);
 }
 
+function Killing(){
 
-setInterval(game, console.log("Game"), 100);
-//setInterval(CreateObjects(), 100)
+  grassArr = [];
+  eaterArr = [];
+  manArr = [];
+  treeArr = [];
+  swampArr = [];
+
+  for (var i = 0; i < matrix.length; i++){
+    for (var j = 0; j < matrix.length; j++){
+      matrix[i][j] = 0;
+    }
+  }
+
+  io.sockets.emit("send matrix", matrix);
+}
+
+function AddGrass (){
+  for (var i = 0; i < 5; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length);
+    var y = Math.floor(Math.random() * matrix.length);
+    if (matrix[y][x] == 0){
+      matrix[y][x] = 1;
+      grassArr.push(new Grass(x, y));
+    }
+  }
+  io.sockets.emit("send matrix", matrix);
+}
+
+function AddEater (){
+  for (var i = 0; i < 5; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length);
+    var y = Math.floor(Math.random() * matrix.length);
+    if (matrix[y][x] == 0){
+      matrix[y][x] = 2;
+      eaterArr.push(new Eater(x, y));
+    }
+  }
+  io.sockets.emit("send matrix", matrix);
+}
+
+function AddMen (){
+  for (var i = 0; i < 5; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length);
+    var y = Math.floor(Math.random() * matrix.length);
+    if (matrix[y][x] == 0){
+      matrix[y][x] = 3;
+      manArr.push(new Man(x, y));
+    }
+  }
+  io.sockets.emit("send matrix", matrix);
+}
+
+setInterval(game, 500);
+// setInterval(CreateObjects(), 100)
+//console.log("Game"),
 
 function ArraySplicing(NeededArray) {
   for (var i in NeededArray) {
@@ -135,7 +190,24 @@ function SwampGenerating() {
 }
 
 io.on("connection", function (socket) {
-  generator();
   CreateObjects();
 
+  socket.on ("kill", Killing);
+  socket.on ("add grass", AddGrass);
+  socket.on ("add eaters", AddEater);
+  socket.on ("add men", AddMen);
 });
+
+var statistics = {};
+
+setInterval(function() {
+  statistics.Grass = grassArr.length;
+  statistics.Eater = eaterArr.length;
+  statistics.Man = manArr.length;
+  statistics.Tree = treeArr.length;
+  statistics.Swamp = swampArr.length;
+
+  fs.writeFile("statistics.json", JSON.stringify(statistics), function(){
+      console.log("send")
+  })
+},1000);

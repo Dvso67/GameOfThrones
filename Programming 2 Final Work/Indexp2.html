@@ -10,9 +10,50 @@
    
    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
    <script src="Prog2.js"></script>
-
+   
    <!-- <link rel="stylesheet" href="style.css"> -->
+   <style>
+         .event {
+           display: inline-block;
+           padding: 3px 15px;
+           font-size: 20px;
+           cursor: pointer;
+           text-align: center;
+           text-decoration: none;
+           outline: none;
+           color: #fff;
+           background-color: #416779;
+           border: none;
+           border-radius: 10px;
+           margin: 5px;
+         }
+   
+         .event:hover {
+           background-color: #3e8e41;
+         }
+   
+       </style>
 </head>
 <body>
+   <div class = "tools">
+   <h1 style="color:steelblue">Events </h1>
+   <ul>
+      <li>
+         <button class = "event" onclick="kill()">Kill them all  </button>
+      </li>
+      <li>
+            <button class = "event"  onclick="AddGrass()">Add Grasses  </button>
+      </li>
+      <li>
+            <button class = "event"  onclick="AddEaters()">Add Eaters </button>
+      </li>
+      <li>
+            <button class = "event"  onclick="AddMen()">Add Men </button>
+      </li>
+
+   </ul>
+   </body>
+
+</div>
 </body>
 </html>

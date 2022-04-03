@@ -13,6 +13,7 @@ function setup() {
 function Draw_Matrix(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
+            //noStroke();
             if (matrix[y][x] == 1) {
                 fill("green");
             }
@@ -29,11 +30,26 @@ function Draw_Matrix(matrix) {
                 fill("brown");
             }
             else {
-                fill("grey");
+                fill("white");
             }
-            rect(x * side, y * side, side, side);
+            triangle(x * side, y * side, x * side, y * side+side, x * side+side, y * side,)
+            //rect(x * side, y * side, side, side);
         }
     }
+}
+
+function kill() {
+    socket.emit("kill");
+}
+
+function AddGrass() {
+    socket.emit("add grass");
+}
+function AddEaters() {
+    socket.emit("add eaters");
+}
+function AddMen() {
+    socket.emit("add men");
 }
 
 socket.on('send matrix', Draw_Matrix);
